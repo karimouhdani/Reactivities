@@ -1,0 +1,27 @@
+--- dotnet new sln 
+--- dotnet new classlib -n name
+--- dotnet new webapi -n name
+--- Add project to sln 
+{
+    dotnet sln add Domain/
+}
+--- List project in sln 
+{
+    dotnet sln list
+}
+--- Add reference to project
+{
+    go to project par ex Application 
+    dotnet add reference ../Domain/
+}
+--- dotnet run -p API/
+
+----------Migrations---------
+--- dotnet ef migrations add InitialCreate -p(project) Persistense/ -s(startup project) API/
+after config program.cs in startup project
+on execute cette commande apres la configuration du program.cs du projet API
+dotnet watch run ====> cette commande s'execute seulement dans la classe Program.cs
+
+----------------------------------------------- REACT ---------------------------------------
+--- npx create-react-app NomApp --use-npm --typescript
+--- NomApplication/ npm start
