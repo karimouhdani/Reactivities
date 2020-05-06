@@ -27,10 +27,20 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             // Add DbContext 
-            services.AddDbContext<Persistence.DataContext>(opt=>
+            services.AddDbContext<Persistence.DataContext>(opt =>
             {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            //Add Cors pour liés les donnes avec REACT
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -42,7 +52,9 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -52,6 +64,8 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
